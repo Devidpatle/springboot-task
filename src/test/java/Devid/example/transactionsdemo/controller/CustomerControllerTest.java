@@ -95,5 +95,4 @@ public class CustomerControllerTest {
         // Verifying that the service method was called once
         verify(customerService, times(1)).getCustomerById(1L);
     }
-    // You can add more tests for other controller methods (saveCustomer, updateCustomer, deleteCustomer) similarly
 }

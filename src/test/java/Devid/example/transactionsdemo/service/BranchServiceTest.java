@@ -124,7 +124,6 @@ public class BranchServiceTest {
 //        myBranch.setId(1L);
 //        myBranch.setName("State Bank Of India");
 
-
 //        when(branchRepository.findById(anyLong())).thenReturn(Optional.of(myBranch));
 //        doNothing().when(branchRepository).delete(any(Branch.class));
 
