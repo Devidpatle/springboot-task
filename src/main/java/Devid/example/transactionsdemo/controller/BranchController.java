@@ -3,9 +3,11 @@ package Devid.example.transactionsdemo.controller;
 import Devid.example.transactionsdemo.entity.Branch;
 import Devid.example.transactionsdemo.service.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/branches")
@@ -28,23 +30,26 @@ public class BranchController {
         return branchService.saveBranch(branch);
      }
 
+//    @DeleteMapping("/{id}")
+//    public void deleteBranch(@PathVariable Long id) {
+//        branchService.deleteBranch(id);
+//    }
+
     @DeleteMapping("/{id}")
-    public void deleteBranch(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteBranch(@PathVariable Long id) {
         branchService.deleteBranch(id);
+        return ResponseEntity.noContent().build();
     }
-    // Other CRUD operations and mappings as needed
 
 
+    // BranchController.java
     @PutMapping("/{id}")
-    public Branch updateBranch(@PathVariable Long id, @RequestBody Branch updatedBranch) {
-        // Retrieve the existing branch from the database
-        Branch existingBranch = branchService.getBranchById(id)
-                .orElseThrow(() -> new RuntimeException("Branch not found with id " + id));
+    public ResponseEntity<Branch> updateBranch(@PathVariable Long id, @RequestBody Branch updatedBranch) {
+        // Update the branch using the service method
+        Branch updated = branchService.updateBranch(id, updatedBranch);
 
-        // Update the fields of the existing branch with the values from the updated branch
-        existingBranch.setName(updatedBranch.getName());
+        // Return response with updated branch and status code 200 (OK)
+        return ResponseEntity.ok(updated);
+    }
 
-        // Save the updated branch
-        return branchService.saveBranch(existingBranch);
-}
 }

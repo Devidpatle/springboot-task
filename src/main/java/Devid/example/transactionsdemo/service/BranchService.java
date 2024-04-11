@@ -23,13 +23,17 @@ public class BranchService {
         branchRepository.deleteById(id);
     }
     public Branch updateBranch(Long id, Branch updatedBranch) {
+        // Fetch the existing branch
         Branch existingBranch = branchRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Branch not found with id " + id));
 
-        // Update existing branch properties
-        existingBranch.setName(updatedBranch.getName());
+        // Update the properties of the existing branch with the values from the updated branch
+        String updatedName = updatedBranch.getName();
+        if (updatedName != null) {
+            existingBranch.setName(updatedName);
+        }
 
-        // Save and return updated branch
+        // Save and return the updated branch
         return branchRepository.save(existingBranch);
     }
     // Other logic
